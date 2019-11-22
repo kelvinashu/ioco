@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import za.co.digitalplatoon.invoiceservice.exceptions.ResourceNotFoundException;
 import za.co.digitalplatoon.invoiceservice.invoice.Invoice;
 import za.co.digitalplatoon.invoiceservice.service.InvoiceService;
 
@@ -35,7 +36,7 @@ public class InvoiceController {
 
 	@GetMapping("/viewInvoice/{id}")
 	public Invoice viewInvoice(@PathVariable(name = "id") int id) {
-		return invoiceService.viewInvoice(new Long(id)).get();
+		return invoiceService.viewInvoice(new Long(id)).orElseThrow(() -> new ResourceNotFoundException("Invoice", "id", id));
 
 	}
 
