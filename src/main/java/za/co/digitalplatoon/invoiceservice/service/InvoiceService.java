@@ -11,6 +11,6 @@ public interface InvoiceService {
 
 	List<Invoice> viewAllInvoices();
 
-	Invoice addInvoice(Invoice invoice);
+	Optional<Invoice> addInvoice(Invoice invoice);
 
 }

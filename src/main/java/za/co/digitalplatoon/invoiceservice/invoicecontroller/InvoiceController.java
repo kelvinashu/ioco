@@ -1,6 +1,7 @@
 package za.co.digitalplatoon.invoiceservice.invoicecontroller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import za.co.digitalplatoon.invoiceservice.exceptions.ResourceDuplicateException;
 import za.co.digitalplatoon.invoiceservice.exceptions.ResourceNotFoundException;
 import za.co.digitalplatoon.invoiceservice.invoice.Invoice;
 import za.co.digitalplatoon.invoiceservice.service.InvoiceService;
@@ -25,7 +27,11 @@ public class InvoiceController {
 
 	@PostMapping("/addInvoice")
 	public Invoice addInvoice(@RequestBody @Valid Invoice invoice) {
-		return invoiceService.addInvoice(invoice);
+		Optional<Invoice> invoiceObject = invoiceService.viewInvoice(invoice.getId());
+		if(invoiceObject.isPresent()) {
+			throw new ResourceDuplicateException("Invoice", "id", invoice.getId());
+		}
+		return invoiceService.addInvoice(invoice).get();
 	}
 
 	@GetMapping("/viewAllInvoices")
