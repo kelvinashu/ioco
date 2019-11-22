@@ -88,9 +88,8 @@ public class LineItem implements Serializable {
 	}
 
 	public BigDecimal getLineItemTotal() {
-		lineItemTotal = new BigDecimal(quantity * unitPrice.longValue());
-		lineItemTotal.setScale(2, RoundingMode.HALF_UP);
-		return lineItemTotal;
+		lineItemTotal = new BigDecimal(quantity * unitPrice.doubleValue());
+		return lineItemTotal.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	@Override

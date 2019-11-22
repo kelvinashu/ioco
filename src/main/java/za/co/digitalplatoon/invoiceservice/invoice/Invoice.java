@@ -89,22 +89,22 @@ public class Invoice {
 	}
 
 	public BigDecimal getSubTotal() {
-		subTotal = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+		subTotal = new BigDecimal(0);
 		for (LineItem lineItem : lineItems) {
 			subTotal = subTotal.add(lineItem.getLineItemTotal());
 		}
-		return subTotal;
+		return subTotal.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getVat() {
-		vat = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
+		vat = new BigDecimal(0);
 		vat = getSubTotal().multiply(new BigDecimal(vatRate));
-		return vat;
+		return vat.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getTotal() {
 		total = getSubTotal().add(getVat());
-		return total;
+		return total.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	@Override

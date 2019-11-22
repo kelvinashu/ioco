@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,18 @@ public class InvoiceController {
 
 	@PostMapping("/addInvoice")
 	public Invoice addInvoice(@RequestBody @Valid Invoice invoice) {
-		return null;
+		return invoiceService.addInvoice(invoice);
 	}
 
 	@GetMapping("/viewAllInvoices")
 	public List<Invoice> viewAllInvoices() {
 		return invoiceService.viewAllInvoices();
+
+	}
+
+	@GetMapping("/viewInvoice/{id}")
+	public Invoice viewInvoice(@PathVariable(name = "id") int id) {
+		return invoiceService.viewInvoice(new Long(id)).get();
 
 	}
 

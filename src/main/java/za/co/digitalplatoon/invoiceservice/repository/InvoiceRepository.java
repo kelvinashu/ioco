@@ -9,13 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import za.co.digitalplatoon.invoiceservice.invoice.Invoice;
 
-
 @Repository
-public interface InvoiceRepository extends JpaRepository<Invoice, Long>{
-	
-	Optional<Invoice> findById(@Param ("id ") Long id);
-	
+public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
+
+	Optional<Invoice> findById(@Param("id ") Long id);
+
 	List<Invoice> findAll();
-	
-	
+
 }

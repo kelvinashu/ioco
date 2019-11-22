@@ -1,6 +1,7 @@
 package za.co.digitalplatoon.invoiceservice.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +16,19 @@ public class InvoiceServiceImpl implements InvoiceService {
 	private InvoiceRepository invoiceRepo;
 
 	@Override
-	public Invoice viewInvoice(Invoice invoice) {
-
-		return null;
+	public Optional<Invoice> viewInvoice(Long id) {
+		return invoiceRepo.findById(id);
 	}
 
 	@Override
 	public List<Invoice> viewAllInvoices() {
-
 		return invoiceRepo.findAll();
 	}
 
 	@Override
 	public Invoice addInvoice(Invoice invoice) {
+		return invoiceRepo.save(invoice);
 
-		return null;
 	}
 
 }
